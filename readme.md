@@ -11,19 +11,19 @@
 ## Create the data set
 
 1. Create a json file simialar to the below and name it dataset_info.json
-![Alt text](image.png)
+![Alt text](images/image.png)
 2. Upload the images and the json file on to an Amazon S3 bucket
-![Alt text](image-1.png)
+![Alt text](images/image-1.png)
 
 ## Fine tune Stable Diffusion Model
 
 1. Log in to your SageMaker Studio
 2. Click on SageMaker Jumpstarts -> Models, Notebooks and solutions
 3. Search for Stable Diffusion and select "Stable Diffusion 2.1 base"
-![Alt text](image-2.png)
+![Alt text](images/image-2.png)
 4. Click on the "Train" tab
 5. For the training dataset, select the Amazon S3 prefix where you uploaded your data
-![Alt text](image-3.png)
+![Alt text](images/image-3.png)
 
 6. Click on "Train"
 
@@ -33,13 +33,13 @@ This will start the fine tuning of the Stable diffusion model and will take ~10 
 
 1. Once fine tuning is complete, click on the "Deploy" tab
 2. Enter a name for the fine tuned model,  keep the rest the same
-![Alt text](image-4.png)
+![Alt text](images/image-4.png)
 3. Click on "Deploy".  this will take ~7 -8 minutes to complete
 
 ## Play with the model and create your own avatars
 
 1. Clone the repo
-```git clone```
+```git clone https://github.com/thandavm/create_your_own_avatar.git```
 2. Install the required sdk
 ```pip install -r requirements.txt```
 3. Open the app.py and add your access key, secret key and model end point name
