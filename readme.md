@@ -6,7 +6,8 @@
 2. Acess to Foundation Model hub within the AWS Account - If you do not have access request access as per the guidelines provided in <https://wiki.amazon.com/bin/view/SageMaker-JumpStart/FoundationModels>
 3. SageMaker Domain, User and IAM role with full access to SageMaker and Amazon S3
 4. Create a user with admin previliges and capture the access key and secret key securely
-5. Use us-east-1 for your lab
+5. Access and Secret key are required for to be used in the last step of this lab
+6. Use us-east-1 for your lab
 
 ## Create the data set
 
@@ -35,15 +36,18 @@ This will start the fine tuning of the Stable diffusion model and will take ~10 
 2. Enter a name for the fine tuned model,  keep the rest the same
 ![Alt text](images/image-4.png)
 3. Click on "Deploy".  this will take ~7 -8 minutes to complete
+4. Copy the end point name,  This is required to be used in the next step
 
 ## Play with the model and create your own avatars
 
-1. Clone the repo
+1. Open up a terminal and clone the repo
 ```git clone https://github.com/thandavm/create_your_own_avatar.git```
-2. Install the required sdk
+2. Ensure that python and pip are both installed. If using a Mac you may find this link useful
+3. Change directory cd create_your_own_avatar and check for the requirements.txt file as well as the app.py file
+4. Install the required sdk
 ```pip install -r requirements.txt```
-3. Open the app.py and add your access key, secret key and model end point name
-4. run the app
+5. Open the app.py and add your access key, secret key and model end point name
+6. run the app
 ```streamlit run app.py```
-5. Unleash your imagination in the text area.  Few sample below
+7. Unleash your imagination in the text area.  Few sample below
  "meena man as 10 year old boy"
