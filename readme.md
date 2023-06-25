@@ -4,10 +4,14 @@
 
 1. AWS Account
 2. Acess to Foundation Model hub within the AWS Account - If you do not have access request access as per the guidelines provided in <https://wiki.amazon.com/bin/view/SageMaker-JumpStart/FoundationModels>
-3. SageMaker Domain, User and IAM role with full access to SageMaker and Amazon S3
-4. Create a user with admin previliges and capture the access key and secret key securely
-5. Access and Secret key are required for to be used in the last step of this lab
-6. Use us-east-1 for your lab
+3. Use us-east-1 for your lab
+
+## Run the cloud formation teemplate
+
+1. Open up a terminal in your machine and clone the repo
+```git clone https://github.com/thandavm/create_your_own_avatar.git```
+2. Log in to your AWS Console -> CloudFormation
+3. Use the [`template.yml`](./template.yml) to create a CloudFormation stack.  Pick the default VPC and Subnets as parameters
 
 ## Create the data set
 
@@ -18,7 +22,7 @@
 
 ## Fine tune Stable Diffusion Model
 
-1. Log in to your SageMaker Studio
+1. Log in to your SageMaker Studio [created as a part of the cloud formation template]
 2. Click on SageMaker Jumpstarts -> Models, Notebooks and solutions
 3. Search for Stable Diffusion and select "Stable Diffusion 2.1 base"
 ![Alt text](images/image-2.png)
@@ -40,8 +44,7 @@ This will start the fine tuning of the Stable diffusion model and will take ~10 
 
 ## Play with the model and create your own avatars
 
-1. Open up a terminal and clone the repo
-```git clone https://github.com/thandavm/create_your_own_avatar.git```
+1. Back in your local laptop go the folder where you cloned the repo
 2. Ensure that python and pip are both installed. If using a Mac you may find this link useful
 3. Change directory cd create_your_own_avatar and check for the requirements.txt file as well as the app.py file
 4. Install the required sdk

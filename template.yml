@@ -1,0 +1,89 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Template to provision a EIAB resources
+
+Parameters:
+  VpcSelection:
+    Type: AWS::EC2::VPC::Id
+    Description: Select a VPC
+  SubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: List of subnet IDs where the SageMaker domain resources will be created
+
+Resources:
+
+  AdminUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: admin-user
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+
+
+  AdminUserAccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref AdminUser
+
+  SageMakerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: EIAB_SageMakerExecutionRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AWSCloudFormationReadOnlyAccess
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - sagemaker.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+
+  NotebookInstance:
+    Type: AWS::SageMaker::NotebookInstance
+    Properties:
+      NotebookInstanceName: EIABNotebook
+      InstanceType: ml.t3.xlarge
+      RoleArn: !GetAtt SageMakerRole.Arn
+
+
+  SageMakerDomain:
+    Type: AWS::SageMaker::Domain
+    Properties:
+      DomainName: EIABDomain
+      DefaultUserSettings:
+        ExecutionRole: !GetAtt SageMakerRole.Arn
+      AuthMode: IAM
+      VpcId: !Ref VpcSelection
+      SubnetIds:
+        - !Select [ "0", !Ref SubnetIds ]
+        - !Select [ "1", !Ref SubnetIds]
+
+
+  SageMakerUserProfile:
+    Type: AWS::SageMaker::UserProfile
+    Properties:
+      DomainId: !Ref SageMakerDomain
+      UserProfileName: EIABUser
+      UserSettings:
+        ExecutionRole: !GetAtt SageMakerRole.Arn
+
+Outputs:
+  SageMakerExecutionRoleArn:
+    Value: !GetAtt SageMakerRole.Arn
+    Description: ARN of the created SageMaker execution role
+  SageMakerDomainId:
+    Value: !Ref SageMakerDomain
+    Description: ID of the created SageMaker domain
+  SageMakerUserProfileArn:
+    Value: !Ref SageMakerUserProfile
+    Description: ARN of the created SageMaker user profile
+  AdminUserAccessKeyId:
+    Value: !Ref AdminUserAccessKey
+    Description: Access Key ID for the admin user
+  AdminUserSecretAccessKey:
+    Value: !GetAtt AdminUserAccessKey.SecretAccessKey
+    Description: Secret Access Key for the admin user
