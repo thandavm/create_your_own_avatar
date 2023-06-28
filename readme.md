@@ -55,8 +55,16 @@ This will start the fine tuning of the Stable diffusion model and will take ~10 
 ```$source .venv/bin/activate```
 6. Install the required sdk
 ```pip install -r requirements.txt```
-7. Amend the app.py file so that it points to your endpoint (variable ```endpoint_name```) and that it loads your AWS credentials correctly (i.e. set ```credentials_profile_name```)
-8. run the app
+7. Amend the app.py file so that it points to your endpoint (variable ```endpoint_name```) and that it loads your AWS credentials correctly (i.e. set ```profile_name``` in ```boto3_session=boto3.Session(profile_name='default' ```). Replace ```default``` with a different profile name if necessary.
+Run ```$aws configure``` and change the region to ```us-east-1``` if needed.
+
+The configuration files on your laptop that you might need are
+```~/.aws/credentials```
+```~/.aws/config```
+You may also find this command useful:
+```$export AWS_PROFILE=profile_name```
+
+9. run the app
 ```streamlit run app.py```
-9. Unleash your imagination in the text area.  Few sample below
+10. Unleash your imagination in the text area.  Few sample below
  "meena man as 10 year old boy"
