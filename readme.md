@@ -6,7 +6,7 @@
 2. Acess to Foundation Model hub within the AWS Account - If you do not have access request access as per the guidelines provided in <https://wiki.amazon.com/bin/view/SageMaker-JumpStart/FoundationModels>
 3. Use us-east-1 for your lab
 
-## Run the cloud formation teemplate
+## Run the cloud formation template
 
 1. Open up a terminal in your machine and clone the repo
 ```git clone https://github.com/thandavm/create_your_own_avatar.git```
@@ -50,11 +50,12 @@ This will start the fine tuning of the Stable diffusion model and will take ~10 
 1. Back in your local laptop go the folder where you cloned the repo
 2. Ensure that python and pip are both installed. 
 3. Change directory cd create_your_own_avatar and check for the requirements.txt file as well as the app.py file.
-4. It is recommended to use Python Virtual Environment to minimize chances of Python version mismatch
-5. 
+4. It is recommended to use Python Virtual Environment to minimize chances of conflicts with existing python dependencies, it is best to do so in a virtual environment:
+```$python3 -m venv .venv```
+```$source .venv/bin/activate```
 6. Install the required sdk
 ```pip install -r requirements.txt```
-7. Open the app.py and add your access key, secret key and model end point name
+7. Amend the app.py file so that it points to your endpoint (variable ```endpoint_name```) and that it loads your AWS credentials correctly (i.e. set ```credentials_profile_name```)
 8. run the app
 ```streamlit run app.py```
 9. Unleash your imagination in the text area.  Few sample below
