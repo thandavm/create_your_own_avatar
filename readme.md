@@ -10,14 +10,16 @@
 
 1. Open up a terminal in your machine and clone the repo
 ```git clone https://github.com/thandavm/create_your_own_avatar.git```
-2. Log in to your AWS Console -> CloudFormation
-3. Use the [`template.yml`](./template.yml) to create a CloudFormation stack.  Pick the default VPC and Subnets as parameters
+2. Log in to your AWS Console -> VPC and create a VPC and two subnets. Use default settings. We will not be using them for this
+   workshop, but SageMaker Studio which you will create and use in the steps below requires it.
+4. Log in to your AWS Console -> CloudFormation
+5. Use the [`template.yml`](./template.yml) to create a CloudFormation stack.  Pick the VPC and Subnets you created as parameters
 
 ## Create the data set
 
 1. Create a json file simialar to the below and name it dataset_info.json
 ![Alt text](images/image.png)
-2. Upload the images and the json file on to an Amazon S3 bucket
+2. Upload the images and the json file on to an Amazon S3 bucket of your choice in US-EAST-1 (or the same region where you will use SageMaker)
 ![Alt text](images/image-1.png)
 
 ## Fine tune Stable Diffusion Model
@@ -30,27 +32,30 @@
 5. For the training dataset, select the Amazon S3 prefix where you uploaded your data
 ![Alt text](images/image-3.png)
 
-6. Click on "Train"
-
+6. Click on "Train".
+Select any available instance for training, ml.g4dn.8xlarge for example 
 This will start the fine tuning of the Stable diffusion model and will take ~10 - 12 mins to fine tune
 
 ## Deploy the fine tuned Model
 
 1. Once fine tuning is complete, click on the "Deploy" tab
-2. Enter a name for the fine tuned model,  keep the rest the same
+2. Enter a name for the fine tuned model (and make a note of it).
+   keep the rest as default. ml.p3.2xlarge is a good instance to choose for deployment
 ![Alt text](images/image-4.png)
-3. Click on "Deploy".  this will take ~7 -8 minutes to complete
-4. Copy the end point name,  This is required to be used in the next step
+4. Click on "Deploy".  this will take ~7 -8 minutes to complete
+5. Copy the end point name,  This is required to be used in the next step
 
 ## Play with the model and create your own avatars
 
 1. Back in your local laptop go the folder where you cloned the repo
-2. Ensure that python and pip are both installed. If using a Mac you may find this link useful
-3. Change directory cd create_your_own_avatar and check for the requirements.txt file as well as the app.py file
-4. Install the required sdk
+2. Ensure that python and pip are both installed. 
+3. Change directory cd create_your_own_avatar and check for the requirements.txt file as well as the app.py file.
+4. It is recommended to use Python Virtual Environment to minimize chances of Python version mismatch
+5. 
+6. Install the required sdk
 ```pip install -r requirements.txt```
-5. Open the app.py and add your access key, secret key and model end point name
-6. run the app
+7. Open the app.py and add your access key, secret key and model end point name
+8. run the app
 ```streamlit run app.py```
-7. Unleash your imagination in the text area.  Few sample below
+9. Unleash your imagination in the text area.  Few sample below
  "meena man as 10 year old boy"
