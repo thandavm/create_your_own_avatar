@@ -5,14 +5,15 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 #Enter the information per your account
-access_key = ''
-secret_key = ''
+#access_key = ''
+#secret_key = ''
 region = 'us-east-1'
-model_end_point = ''
+model_end_point = 'jumpstart-ftc-stable-diffusion-v2-1-base'
 
+boto3_session=boto3.Session(profile_name='default')
 sagemaker_runtime_client = boto3.client('runtime.sagemaker',
-                            aws_access_key_id= access_key,
-                            aws_secret_access_key=secret_key,
+#                            aws_access_key_id= access_key,
+#                            aws_secret_access_key=secret_key,
                             region_name=region)
 
 st.subheader('Test your fine tuned LLM - Text to Image')
